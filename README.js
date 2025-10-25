@@ -15,4 +15,4 @@
 
           // Anda bisa mengirim koordinat ini ke server atau mencatatkannya seperti yang Anda inginkan
           console.log(`Latitude:${latitude}, Longitude:${longitude}`);});} else {       console.log("
-                                                                                                    <script>
+                                                                                                    
