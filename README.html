@@ -1,18 +1,256 @@
-
-<html>
+<!doctype html>
+<html lang="id">
 <head>
-  <title>https: link videyy hchgnkd </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1120;
+      --accent: #ff557f;
+      --glass: rgba(255, 255, 255, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #071226 0%, #08121b 60%);
+      color: #e6eef8;
+    }
+
+    .wrap {
+      width: 340px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.7);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--accent), #ff8fb3);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    h1 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    p.lead {
+      margin: 0;
+      font-size: 12px;
+      color: #a7b6cf;
+    }
+
+    .screen {
+      margin-top: 12px;
+      background: var(--glass);
+      padding: 12px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 70px;
+    }
+
+    .expression {
+      font-size: 14px;
+      color: #9fb0cf;
+      min-height: 18px;
+      word-break: break-all;
+    }
+
+    .result {
+      font-size: 20px;
+      font-weight: 700;
+      min-height: 30px;
+      word-break: break-all;
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button.key {
+      padding: 14px;
+      border-radius: 10px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.03);
+      color: inherit;
+      font-size: 16px;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.2s;
+    }
+
+    button.key:active {
+      transform: scale(0.96);
+    }
+
+    button.op {
+      background: linear-gradient(180deg, #0f2b47, #0c233b);
+    }
+
+    button.eq {
+      grid-column: span 2;
+      background: linear-gradient(90deg, var(--accent), #ff8fb3);
+      color: #081226;
+      font-weight: 700;
+    }
+
+    .credits {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #9fb0cf;
+      text-align: center;
+    }
+
+    .heart {
+      display: inline-block;
+      margin-left: 6px;
+      color: var(--accent);
+    }
+  </style>
 </head>
 <body>
-  <h1>Click</h1>
-  <a href="#" onclick="logLocation()">Klik di sini!</a>
+  <main class="wrap" role="application">
+    <header>
+      <div class="logo">❤</div>
+      <div>
+        <h1>Kalkulator — by Dyas</h1>
+        <p class="lead">hanya untuk bersenang senang 💖</p>
+      </div>
+    </header>
+
+    <section class="screen" aria-live="polite">
+      <div class="expression" id="expr">0</div>
+      <div class="result" id="result"></div>
+    </section>
+
+    <section class="keys" role="group" aria-label="Calculator keys">
+      <button class="key" data-action="clear">C</button>
+      <button class="key" data-action="back">⌫</button>
+      <button class="key" data-value="%">%</button>
+      <button class="key op" data-value="/">÷</button>
+
+      <button class="key" data-value="7">7</button>
+      <button class="key" data-value="8">8</button>
+      <button class="key" data-value="9">9</button>
+      <button class="key op" data-value="*">×</button>
+
+      <button class="key" data-value="4">4</button>
+      <button class="key" data-value="5">5</button>
+      <button class="key" data-value="6">6</button>
+      <button class="key op" data-value="-">−</button>
+
+      <button class="key" data-value="1">1</button>
+      <button class="key" data-value="2">2</button>
+      <button class="key" data-value="3">3</button>
+      <button class="key op" data-value="+">+</button>
+
+      <button class="key" data-value="0">0</button>
+      <button class="key" data-value=".">.</button>
+      <button class="key eq" data-action="equals">=</button>
+      <button class="key" data-action="surprise">💌</button>
+    </section>
+
+    <div class="credits">
+      💞hehe💞
+    </div>
+  </main>
 
   <script>
-    function logLocation() {     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
+    (function(){
+      const exprEl = document.getElementById('expr');
+      const resEl = document.getElementById('result');
+      let expr = '';
 
-          // Anda bisa mengirim koordinat ini ke server atau mencatatkannya seperti yang Anda inginkan
-          console.log(`Latitude:${latitude}, Longitude:${longitude}`);});} else {       console.log("
-                                                                                                    
+      function updateDisplay(){
+        exprEl.textContent = expr || '0';
+        if (!resEl.dataset.done) resEl.textContent = '';
+      }
+
+      function append(v){
+        if (v === '.' && /\.$/.test(expr)) return;
+        if (/^[+\-*/%]$/.test(v) && expr === '') return;
+        expr += v;
+        updateDisplay();
+      }
+
+      function back(){ expr = expr.slice(0, -1); updateDisplay(); }
+      function clearAll(){ expr = ''; resEl.dataset.done = ''; updateDisplay(); }
+
+      function equals(){
+        if (!expr) return;
+        try {
+          const safe = expr.replace(/[^0-9+\-*/%.() ]/g, '');
+          const value = Function('return (' + safe + ')')();
+          console.log('Real result (hidden):', value);
+        } catch(e) {
+          console.log('Eval error', e);
+        }
+
+        resEl.textContent = `${expr} = i love you`;
+        resEl.dataset.done = 'true';
+        expr = '';
+        exprEl.textContent = '0';
+      }
+
+      document.querySelectorAll('.key').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const v = btn.getAttribute('data-value');
+          const action = btn.getAttribute('data-action');
+          if (action === 'clear') return clearAll();
+          if (action === 'back') return back();
+          if (action === 'equals') return equals();
+          if (action === 'surprise') {
+            resEl.textContent = '💌 i love you💖';
+            resEl.dataset.done = 'true';
+            setTimeout(() => resEl.textContent = '', 1500);
+            return;
+          }
+          if (v) append(v);
+        });
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.key >= '0' && e.key <= '9') || '+-*/.%()'.includes(e.key)) {
+          append(e.key);
+          e.preventDefault();
+        } else if (e.key === 'Backspace') back();
+        else if (e.key === 'Enter') equals();
+        else if (e.key.toLowerCase() === 'c') clearAll();
+      });
+
+      // init
+      updateDisplay();
+    })();
+  </script>
+</body>
+  </html>
+
