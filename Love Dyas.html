@@ -1,0 +1,289 @@
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For Someone Special ❤️</title>
+
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #ff758c,
+                #ff7eb3,
+                #ffc3a0
+            );
+            color: white;
+        }
+
+        /* BACKGROUND HEARTS */
+        #hearts {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(255, 255, 255, 0.75);
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* MAIN CARD */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 90%;
+            max-width: 430px;
+            padding: 35px 25px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(130, 0, 50, 0.2);
+            animation: appear 1.2s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* TITLE */
+        .main-heart {
+            font-size: 65px;
+            display: inline-block;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.2);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.12);
+            }
+        }
+
+        h1 {
+            font-size: 30px;
+            margin: 15px 0;
+            text-shadow: 0 3px 10px rgba(100, 0, 30, 0.2);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        /* BUTTON */
+        button {
+            border: none;
+            padding: 13px 25px;
+            border-radius: 50px;
+            background: white;
+            color: #ff4f81;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(100, 0, 30, 0.15);
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 20px rgba(100, 0, 30, 0.2);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* LOVE MESSAGE */
+        #message {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            line-height: 1.8;
+            font-size: 14px;
+            animation: appear 0.7s ease;
+        }
+
+        #message h2 {
+            margin-bottom: 10px;
+            font-size: 21px;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        /* MOBILE */
+        @media (max-width: 400px) {
+            .container {
+                padding: 28px 20px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .main-heart {
+                font-size: 55px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ANIMATED BACKGROUND -->
+    <div id="hearts"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+
+        <div class="main-heart">❤️</div>
+
+        <h1>For Someone Special</h1>
+
+        <p class="subtitle">
+            Ada sesuatu yang ingin aku sampaikan kepadamu...
+            <br>
+            Mungkin sederhana, tetapi datang dari hati. 💌
+        </p>
+
+        <button id="loveButton" onclick="showLove()">
+            Buka Pesan ❤️
+        </button>
+
+        <div id="message" aria-live="polite">
+            <h2>Dear You 💖</h2>
+
+            <p>
+                Kamu adalah seseorang yang istimewa.
+                <br><br>
+                Terima kasih sudah menjadi bagian
+                dari cerita indah ini.
+                <br><br>
+                Semoga hari-harimu selalu dipenuhi
+                kebahagiaan, senyuman, dan cinta.
+                <br><br>
+                <strong>You are special. Always remember that. ❤️</strong>
+            </p>
+        </div>
+
+        <div class="footer">
+            Made with ❤️ and a little bit of magic ✨
+        </div>
+
+    </main>
+
+    <script>
+        // SHOW LOVE MESSAGE
+        function showLove() {
+            const message = document.getElementById("message");
+            const button = document.getElementById("loveButton");
+
+            if (message.style.display === "block") {
+                message.style.display = "none";
+                button.textContent = "Buka Pesan ❤️";
+            } else {
+                message.style.display = "block";
+                button.textContent = "Tutup Pesan 💌";
+
+                // Create extra hearts when clicked
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(createHeart, i * 100);
+                }
+            }
+        }
+
+        // CREATE FLOATING HEARTS
+        function createHeart() {
+            const heartsContainer = document.getElementById("hearts");
+            const heart = document.createElement("span");
+
+            heart.classList.add("heart");
+
+            const symbols = ["❤️", "💕", "💖", "💗", "💘", "💝"];
+
+            heart.textContent =
+                symbols[Math.floor(Math.random() * symbols.length)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (15 + Math.random() * 25) + "px";
+
+            const duration = 4 + Math.random() * 5;
+
+            heart.style.animationDuration = duration + "s";
+
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // AUTOMATIC HEART ANIMATION
+        setInterval(createHeart, 350);
+    </script>
+
+</body>
+  </html>
